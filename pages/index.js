@@ -1,5 +1,3 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Card from '@mui/material/Card'
 import Link from 'next/link';
@@ -12,7 +10,7 @@ export default function Home() {
       <Container maxWidth='sm' >
       <Card variant="outlined">
         <CardContent>
-          <Typography variant='h5' align='center'>Getting started with Linguista</Typography>
+          <Typography variant='h5' align='center'>Getting started with Linguaphile</Typography>
           <Stack direction={'row'} justifyContent='center' spacing={7} marginTop={3}>
           <Link href="/login"><Button variant="contained">Login</Button></Link>
 <Link href="/signup"><Button variant="outlined">Sign Up</Button></Link>

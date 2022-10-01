@@ -1,32 +1,20 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormLabel from '@mui/material/FormLabel';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
+import {useState,useEffect} from 'react';
 import styles from '../styles/Home.module.css'
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
 import {useRouter} from 'next/router';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Container,Card,CardContent,Typography,Stack,Button } from '@mui/material';
+import { Container,Card,CardContent,Typography,Stack,Button, IconButton,OutlinedInput,InputLabel,InputAdornment,FormControl, Alert } from '@mui/material';
+import axios from 'axios';
 
 export default function Login() {
   const router = useRouter();
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     password: '',
     email: '',
     weightRange: '',
     showPassword: false,
   });
+  const [success,setSuccess]=useState('');
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -47,7 +35,7 @@ export default function Login() {
       <Container maxWidth='sm' >
       <Card variant="outlined">
         <CardContent>
-          <Typography marginTop={2} variant='h5' align='center'>Getting started with Linguista</Typography>
+          <Typography marginTop={2} variant='h5' align='center'>Getting started with Linguaphile</Typography>
           <Stack direction={'column'} justifyContent='center' spacing={3} marginTop={3} marginLeft={10} marginRight={10} paddingBottom={3}>
           <FormControl  variant="outlined">
           <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
@@ -82,26 +70,20 @@ export default function Login() {
             label="Password"
           /></FormControl>
           
-    <Button variant="contained" onClick={()=>{
+    <Button variant="contained" onClick={async()=>{
+      try {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_LOGIN}`,{ email: values['email'], password: values['password'] })
+      const data = response.data;
+       setSuccess("success");
+      localStorage.setItem('userID',data);
+      router.push('/form');
+      } catch (error) {
+        setSuccess('error');
+      }
       
-      fetch("http://localhost:4000/api/login", {
-        // mode: "no-cors",
-        method: "POST",
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: values['email'], password: values['password'] }),
-        // body:({email:email, password:password})
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem('userID',data);
-          router.push('/form');
-        });
-
-
+   
     }}>Login</Button>
+        {success!=''?<Alert severity={`${success}`}>{success.charAt(0).toUpperCase()+success.slice(1)}</Alert>:<br></br>}
           </Stack>
 
         </CardContent>

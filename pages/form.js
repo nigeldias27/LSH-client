@@ -1,31 +1,23 @@
-import * as React from 'react';
+import {useState,useEffect} from 'react';
 import styles from '../styles/Home.module.css'
 import { Container, Card, CardContent, Typography, Stack, Button, TextField } from '@mui/material';
+import axios from 'axios';
 export default function Form(){
-    React.useEffect(()=>{
+    useEffect(()=>{
         fetchinputs();
-    })
-    const [formlist,setFormlist] = React.useState([]);
+    },[])
+    const [formlist,setFormlist] = useState([]);
     
-    function fetchinputs(){
-        fetch("http://localhost:4000/api/getinputs/"+localStorage.getItem('userID'), {
-          // mode: "no-cors",
-          method: "GET",
-        //  headers: {
-        //    Accept: "application/json, text/plain, */*",
-        //    "Content-Type": "application/json",
-         // },
-       //    body:({id:localStorage.getItem('userID')})
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            var l = data.map((val)=>{ 
+    async function fetchinputs(){
+        console.log(`${process.env.NEXT_PUBLIC_GETINPUTS}`+localStorage.getItem('userID'))
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_GETINPUTS}`+localStorage.getItem('userID'))
+        const data = response.data;
+        console.log(data)
+        var l = data.map((val)=>{ 
             
-                return {input:val,value:''}});
-            
-            setFormlist([...l]);
-          });
-      
+            return {input:val,value:''}});
+        
+        setFormlist([...l]);      
       }
       const handleChange = (prop) => (event) => {
 
@@ -48,7 +40,7 @@ export default function Form(){
         <Container maxWidth='sm' >
         <Card variant="outlined">
           <CardContent>
-            <Typography variant='h5' align='center'>Getting started with Linguista</Typography>
+            <Typography variant='h5' align='center'>Getting started with Linguaphile</Typography>
             <Stack direction={'column'} justifyContent='center' spacing={7} marginTop={3}>
           
     {

@@ -1,55 +1,34 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormLabel from '@mui/material/FormLabel';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
+import {useState,useEffect} from 'react';
 import styles from '../styles/Home.module.css'
-import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
+import {useRouter} from 'next/router';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Container,Card,CardContent,Typography,Stack,Button, Alert } from '@mui/material';
+import axios from 'axios';
+import { Container,Card,CardContent,Typography,Stack,Button, Alert,FormLabel,RadioGroup,IconButton ,Radio,FormControlLabel, FormControl, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 
 export default function Signup() {
-  const [roles,setRoles]=React.useState([]);
-  const [radios,setRadio]=React.useState('');
-  const [success,setSuccess]=React.useState('');
-  const [values, setValues] = React.useState({
+  const [roles,setRoles]=useState([]);
+  const [radios,setRadio]=useState('');
+  const [success,setSuccess]=useState('');
+  const router = useRouter();
+  const [values, setValues] = useState({
     password: '',
     email: '',
     weightRange: '',
     showPassword: false,
   });
-  React.useEffect(()=>{
+  useEffect(()=>{
   fetchall();
   },[]);
 
-function fetchall(){
-  fetch("http://localhost:4000/api/getroles", {
-    // mode: "no-cors",
-    method: "GET",
-   // headers: {
-   //   Accept: "application/json, text/plain, */*",
-   //   "Content-Type": "application/json",
-  //  },
-    // body:({email:email, password:password})
+async function fetchall(){
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_GETROLE}`);
+  var data = response.data;
+  data=data.map((val)=>{
+    return val['role_name'];
   })
-    .then((res) => res.json())
-    .then((data) => {
-      data=data.map((val)=>{
-        return val['role_name'];
-      })
-      setRoles([...data]);
-      console.log(data);
-    });
+  setRoles([...data]);
+  console.log(data);
 
 }
 
@@ -75,7 +54,7 @@ function fetchall(){
       <Container maxWidth='sm' >
       <Card variant="outlined">
         <CardContent>
-          <Typography marginTop={2} variant='h5' align='center'>Getting started with Linguista</Typography>
+          <Typography marginTop={2} variant='h5' align='center'>Getting started with Linguaphile</Typography>
           <Stack direction={'column'} justifyContent='center' spacing={3} marginTop={3} marginLeft={10} marginRight={10} paddingBottom={3}>
           <FormControl  variant="outlined">
           <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
@@ -121,29 +100,16 @@ function fetchall(){
         })}
       </RadioGroup>
     </FormControl>
-<Button  variant="outlined" onClick={()=>{
-      fetch("http://localhost:4000/api/newuser", {
-        // mode: "no-cors",
-        method: "POST",
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: values['email'], password: values['password'],role:radios }),
-        // body:({email:email, password:password})
-      })
-        .then((res) => {
-          if(res.status==200){
-              setSuccess("success");
-
-          }
-          else{
-            setSuccess('error');
-          }
-          
-        })
-
-
+<Button  variant="outlined" onClick={async ()=>{
+  try {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_NEWUSER}`, { email: values['email'], password: values['password'],role:radios })
+   setSuccess("success");
+      router.push('/login');
+  } catch (error) {
+    setSuccess('error');
+  }
+   
+  
 }}>Sign Up</Button>
     {success!=''?<Alert severity={`${success}`}>{success.charAt(0).toUpperCase()+success.slice(1)}</Alert>:<br></br>}
           </Stack>
