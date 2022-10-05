@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
 import {
   Container,
   Card,
@@ -15,60 +15,94 @@ import {
   FormLabel,
   Backdrop,
   CircularProgress,
+  FormGroup,
+  Checkbox,
+  Alert
 } from "@mui/material";
 import axios from "axios";
 export default function Form() {
   useEffect(() => {
     fetchinputs();
   }, []);
+
   const [formlist, setFormlist] = useState([]);
   const [open, setOpen] = useState(false);
   const [ind, setInd] = useState(0);
+  const router = useRouter();
   const [gotorole, setGotorole] = useState("");
+  const [previousSubmisson,setPreviousSubmission] = useState([]);
+
   async function fetchinputs() {
     setOpen(true);
-    console.log(`${process.env.NEXT_PUBLIC_API}` + "getinputs");
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API}` + "getinputs",
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
+    console.log(response)
     setOpen(false);
     const data = response.data;
-    console.log(data);
-    setFormlist([...data.questions]);
-    setGotorole(formlist.goTorole);
-  }
-  const handleChange = (prop) => (event) => {
-    var newar = [];
-    for (let i = 0; i < formlist.length; i++) {
-      if (i != ind) {
-        newar.push(formlist[i]);
-      } else {
-        var newarr = [];
-        formlist[ind].map((obj) => {
-          if (obj.input === formlist[ind][prop].input) {
-            newarr.push({
-              input: obj.input,
-              type: obj.type,
-              subheadings: obj.subheadings,
-              val: event.target.value,
-            });
-          } else {
-            newarr.push({
-              input: obj.input,
-              type: obj.type,
-              subheadings: obj.subheadings,
-              val: obj.val,
-            });
+    if(data=="No form"){
+      return
+    }
+    for (
+      let questionsindex = 0;
+      questionsindex < data.questions.length;
+      questionsindex++
+    ) {
+      const element = data.questions[questionsindex];
+      for (
+        let innerquestionsindex = 0;
+        innerquestionsindex < element.length;
+        innerquestionsindex++
+      ) {
+        const e = element[innerquestionsindex];
+        if (
+          data.questions[questionsindex][innerquestionsindex].type == "checkbox"
+        ) {
+          var l = [];
+          for (
+            let il = 0;
+            il <
+            data.questions[questionsindex][innerquestionsindex].subheadings
+              .length;
+            il++
+          ) {
+            l.push(false);
           }
-        });
-        newar.push(newarr);
+          data.questions[questionsindex][innerquestionsindex].val =
+            JSON.stringify(l);
+        } else {
+          data.questions[questionsindex][innerquestionsindex].val = "";
+        }
       }
     }
+    console.log(data.questions);
+    setFormlist([...data.questions]);
+    setGotorole(data.goTorole);
+    if(data.previousSubmisson!=undefined){setPreviousSubmission(data.previousSubmisson)}
+  }
 
-    console.log([...newar]);
-    setFormlist([...newar]);
+  const checkboxChange = (i, myi) => (event) => {
+    const optioncheck = JSON.parse(formlist[ind][i].val);
+    optioncheck[myi] = event.target.checked;
+    formlist[ind][i].val = JSON.stringify(optioncheck);
+    setFormlist([...formlist]);
+  };
+
+  const handleChange = (prop) => (event) => {
+    formlist[ind][prop].val = event.target.value;
+    setFormlist([...formlist]);
     console.log(formlist);
+  };
+
+  const submit = async () => {
+    console.log(gotorole);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API}` + "submission",
+      { questions: formlist, gotorole: gotorole ,previousSubmisson:previousSubmisson},
+      { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
+    );
+    router.push('/form')
   };
   return (
     <div>
@@ -118,13 +152,38 @@ export default function Form() {
                         </RadioGroup>
                       </FormControl>
                     );
+                  } else if (val.type == "checkbox") {
+                    return (
+                      <FormControl>
+                        <FormLabel>{val.input}</FormLabel>
+                        <FormGroup>
+                          {val.subheadings.map((myele, myi) => {
+                            return (
+                              <FormControlLabel
+                                control={<Checkbox />}
+                                label={myele}
+                                onChange={checkboxChange(i, myi)}
+                              />
+                            );
+                          })}
+                        </FormGroup>
+                      </FormControl>
+                    );
                   }
                 })
               ) : (
-                <br></br>
+                <Alert severity="info">No form available right now. Check back in later!</Alert>
               )}
               {ind + 1 != formlist.length ? (
-                <Button
+                formlist.length==0?<Button
+                disabled
+                variant="contained"
+                onClick={() => {
+                  setInd(ind + 1);
+                }}
+              >
+                Next
+              </Button>:<Button
                   variant="contained"
                   onClick={() => {
                     setInd(ind + 1);
@@ -136,7 +195,7 @@ export default function Form() {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    console.log(formlist);
+                    submit();
                   }}
                 >
                   Submit
