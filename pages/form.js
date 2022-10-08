@@ -17,13 +17,10 @@ import {
   CircularProgress,
   FormGroup,
   Checkbox,
-  Alert
+  Alert,AppBar,Toolbar,Box
 } from "@mui/material";
 import axios from "axios";
 export default function Form() {
-  useEffect(() => {
-    fetchinputs();
-  }, []);
 
   const [formlist, setFormlist] = useState([]);
   const [open, setOpen] = useState(false);
@@ -31,6 +28,15 @@ export default function Form() {
   const router = useRouter();
   const [gotorole, setGotorole] = useState("");
   const [previousSubmisson,setPreviousSubmission] = useState([]);
+  const [toggle,setToggle]=useState(true);
+
+  useEffect(() => {
+    console.log("Effect")
+    console.log(toggle)
+    fetchinputs();
+  }, [toggle]);
+
+
 
   async function fetchinputs() {
     setOpen(true);
@@ -42,6 +48,12 @@ export default function Form() {
     setOpen(false);
     const data = response.data;
     if(data=="No form"){
+      setFormlist([]);
+      return
+    }
+    if(data=="Verification error"){
+      localStorage.removeItem("userID");
+      router.push("/login")
       return
     }
     for (
@@ -102,11 +114,33 @@ export default function Form() {
       { questions: formlist, gotorole: gotorole ,previousSubmisson:previousSubmisson},
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
-    router.push('/form')
+    setToggle(toggle==true?false:true);
+    console.log(toggle)
   };
   return (
-    <div>
-      <Container maxWidth="sm">
+    <div style={{backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/002/735/447/non_2x/school-supplies-and-office-stationary-on-white-background-back-to-school-education-and-business-concept-seamless-pattern-for-banner-poster-office-supply-store-and-wallpaper-free-vector.jpg")'}}>
+      <AppBar component="nav" style={{position:'static'}}>
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            Linguaphile Skills Hub
+          </Typography>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            
+              <Button onClick={()=>{
+                localStorage.removeItem('userID');
+                router.push('/login');
+              }} sx={{ color: '#fff' }}>
+                Logout
+              </Button>
+            
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Container maxWidth="sm" style={{paddingTop:'24px',paddingBottom:'24px'}}>
         <Card variant="outlined">
           <CardContent>
             <Typography variant="h5" align="center">
@@ -124,6 +158,7 @@ export default function Form() {
                     return (
                       <TextField
                         id="outlined-name"
+                        value={val.val}
                         label={`${val.input}`}
                         onChange={handleChange(i)}
                       />
