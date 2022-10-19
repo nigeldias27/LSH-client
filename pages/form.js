@@ -17,26 +17,28 @@ import {
   CircularProgress,
   FormGroup,
   Checkbox,
-  Alert,AppBar,Toolbar,Box
+  Alert,
+  AppBar,
+  Toolbar,
+  Box,
+  Link,
 } from "@mui/material";
 import axios from "axios";
+import { pdfFormat } from "../pdfFormat/pdfFormat";
 export default function Form() {
-
   const [formlist, setFormlist] = useState([]);
   const [open, setOpen] = useState(false);
   const [ind, setInd] = useState(0);
   const router = useRouter();
   const [gotorole, setGotorole] = useState("");
-  const [previousSubmisson,setPreviousSubmission] = useState([]);
-  const [toggle,setToggle]=useState(true);
+  const [previousSubmisson, setPreviousSubmission] = useState([]);
+  const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
-    console.log("Effect")
-    console.log(toggle)
+    console.log("Effect");
+    console.log(toggle);
     fetchinputs();
   }, [toggle]);
-
-
 
   async function fetchinputs() {
     setOpen(true);
@@ -44,17 +46,17 @@ export default function Form() {
       `${process.env.NEXT_PUBLIC_API}` + "getinputs",
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
-    console.log(response)
+    console.log(response);
     setOpen(false);
     const data = response.data;
-    if(data=="No form"){
+    if (data == "No form") {
       setFormlist([]);
-      return
+      return;
     }
-    if(data=="Verification error"){
+    if (data == "Verification error") {
       localStorage.removeItem("userID");
-      router.push("/login")
-      return
+      router.push("/login");
+      return;
     }
     for (
       let questionsindex = 0;
@@ -91,7 +93,9 @@ export default function Form() {
     console.log(data.questions);
     setFormlist([...data.questions]);
     setGotorole(data.goTorole);
-    if(data.previousSubmisson!=undefined){setPreviousSubmission(data.previousSubmisson)}
+    if (data.previousSubmisson != undefined) {
+      setPreviousSubmission(data.previousSubmisson);
+    }
   }
 
   const checkboxChange = (i, myi) => (event) => {
@@ -111,36 +115,49 @@ export default function Form() {
     console.log(gotorole);
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API}` + "submission",
-      { questions: formlist, gotorole: gotorole ,previousSubmisson:previousSubmisson},
+      {
+        questions: formlist,
+        gotorole: gotorole,
+        previousSubmisson: previousSubmisson,
+      },
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
-    setToggle(toggle==true?false:true);
-    console.log(toggle)
+    setToggle(toggle == true ? false : true);
+    console.log(toggle);
   };
   return (
-    <div style={{backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/002/735/447/non_2x/school-supplies-and-office-stationary-on-white-background-back-to-school-education-and-business-concept-seamless-pattern-for-banner-poster-office-supply-store-and-wallpaper-free-vector.jpg")'}}>
-      <AppBar component="nav" style={{position:'static'}}>
+    <div
+      style={{
+        backgroundImage:
+          'url("https://static.vecteezy.com/system/resources/previews/002/735/447/non_2x/school-supplies-and-office-stationary-on-white-background-back-to-school-education-and-business-concept-seamless-pattern-for-banner-poster-office-supply-store-and-wallpaper-free-vector.jpg")',
+      }}
+    >
+      <AppBar component="nav" style={{ position: "static" }}>
         <Toolbar>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             Linguaphile Skills Hub
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            
-              <Button onClick={()=>{
-                localStorage.removeItem('userID');
-                router.push('/login');
-              }} sx={{ color: '#fff' }}>
-                Logout
-              </Button>
-            
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Button
+              onClick={() => {
+                localStorage.removeItem("userID");
+                router.push("/login");
+              }}
+              sx={{ color: "#fff" }}
+            >
+              Logout
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
-      <Container maxWidth="sm" style={{paddingTop:'24px',paddingBottom:'24px'}}>
+      <Container
+        maxWidth="sm"
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
+      >
         <Card variant="outlined">
           <CardContent>
             <Typography variant="h5" align="center">
@@ -207,34 +224,58 @@ export default function Form() {
                   }
                 })
               ) : (
-                <Alert severity="info">No form available right now. Check back in later!</Alert>
+                <Alert severity="info">
+                  No form available right now. Check back in later!
+                </Alert>
               )}
               {ind + 1 != formlist.length ? (
-                formlist.length==0?<Button
-                disabled
-                variant="contained"
-                onClick={() => {
-                  setInd(ind + 1);
-                }}
-              >
-                Next
-              </Button>:<Button
-                  variant="contained"
-                  onClick={() => {
-                    setInd(ind + 1);
-                  }}
-                >
-                  Next
-                </Button>
+                formlist.length == 0 ? (
+                  <Button
+                    disabled
+                    variant="contained"
+                    onClick={() => {
+                      setInd(ind + 1);
+                    }}
+                  >
+                    Next
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setInd(ind + 1);
+                    }}
+                  >
+                    Next
+                  </Button>
+                )
               ) : (
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    submit();
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
                   }}
                 >
-                  Submit
-                </Button>
+                  <Button variant="outlined">
+                    <Link
+                      underline="none"
+                      href="/api/makePdf"
+                      download="generated_pdf.pdf"
+                      className="downloadBtn"
+                    >
+                      Download PDF
+                    </Link>
+                  </Button>
+                  <Button
+                    style={{ marginTop: "12px" }}
+                    variant="contained"
+                    onClick={() => {
+                      submit();
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </div>
               )}
             </Stack>
           </CardContent>
