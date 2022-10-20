@@ -42,7 +42,7 @@ export default function Login() {
       const data = response.data;
       setSuccess("success");
       localStorage.setItem("userID", data);
-      router.push("/form");
+      router.push("/form"); //make this the ladning page
     } catch (error) {
       setOpen(false);
       setSuccess("error");

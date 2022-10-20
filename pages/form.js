@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
+//<a href="localhost:3000/mypdf.pdf" download></a>
+
 import {
   Container,
   Card,
@@ -104,6 +107,9 @@ export default function Form() {
     );
     router.push('/form')
   };
+
+  console.log("DONE");
+
   return (
     <div>
       <Container maxWidth="sm">
@@ -195,6 +201,7 @@ export default function Form() {
                 <Button
                   variant="contained"
                   onClick={() => {
+                    pdfmake();
                     submit();
                   }}
                 >
