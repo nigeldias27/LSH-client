@@ -20,20 +20,27 @@ import {
   CircularProgress,
   FormGroup,
   Checkbox,
-  Alert
+  Alert,
+  AppBar,
+  Toolbar,
+  Box,
+  Link,
 } from "@mui/material";
 import axios from "axios";
 export default function Form() {
-  useEffect(() => {
-    fetchinputs();
-  }, []);
-
   const [formlist, setFormlist] = useState([]);
   const [open, setOpen] = useState(false);
   const [ind, setInd] = useState(0);
   const router = useRouter();
   const [gotorole, setGotorole] = useState("");
-  const [previousSubmisson,setPreviousSubmission] = useState([]);
+  const [previousSubmisson, setPreviousSubmission] = useState([]);
+  const [toggle, setToggle] = useState(true);
+
+  useEffect(() => {
+    console.log("Effect");
+    console.log(toggle);
+    fetchinputs();
+  }, [toggle]);
 
   async function fetchinputs() {
     setOpen(true);
@@ -41,48 +48,24 @@ export default function Form() {
       `${process.env.NEXT_PUBLIC_API}` + "getinputs",
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
-    console.log(response)
     setOpen(false);
     const data = response.data;
-    if(data=="No form"){
-      return
+    if (data == "No form") {
+      setFormlist([]);
+      return;
     }
-    for (
-      let questionsindex = 0;
-      questionsindex < data.questions.length;
-      questionsindex++
-    ) {
-      const element = data.questions[questionsindex];
-      for (
-        let innerquestionsindex = 0;
-        innerquestionsindex < element.length;
-        innerquestionsindex++
-      ) {
-        const e = element[innerquestionsindex];
-        if (
-          data.questions[questionsindex][innerquestionsindex].type == "checkbox"
-        ) {
-          var l = [];
-          for (
-            let il = 0;
-            il <
-            data.questions[questionsindex][innerquestionsindex].subheadings
-              .length;
-            il++
-          ) {
-            l.push(false);
-          }
-          data.questions[questionsindex][innerquestionsindex].val =
-            JSON.stringify(l);
-        } else {
-          data.questions[questionsindex][innerquestionsindex].val = "";
-        }
-      }
+    if (data == "Verification error") {
+      localStorage.removeItem("userID");
+      router.push("/login");
+      return;
     }
-    console.log(data.questions);
+    
+    console.log(data);
     setFormlist([...data.questions]);
     setGotorole(data.goTorole);
-    if(data.previousSubmisson!=undefined){setPreviousSubmission(data.previousSubmisson)}
+    if (data.previousSubmisson != undefined) {
+      setPreviousSubmission(data.previousSubmisson);
+    }
   }
 
   const checkboxChange = (i, myi) => (event) => {
@@ -102,17 +85,52 @@ export default function Form() {
     console.log(gotorole);
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API}` + "submission",
-      { questions: formlist, gotorole: gotorole ,previousSubmisson:previousSubmisson},
+      {
+        questions: formlist,
+        gotorole: gotorole,
+        previousSubmisson: previousSubmisson,
+      },
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
-    router.push('/form')
+    setToggle(toggle == true ? false : true);
+    console.log(toggle);
   };
 
   console.log("DONE");
 
   return (
-    <div>
-      <Container maxWidth="sm">
+    <div
+      style={{
+        backgroundImage:
+          'url("https://static.vecteezy.com/system/resources/previews/002/735/447/non_2x/school-supplies-and-office-stationary-on-white-background-back-to-school-education-and-business-concept-seamless-pattern-for-banner-poster-office-supply-store-and-wallpaper-free-vector.jpg")',
+      }}
+    >
+      <AppBar component="nav" style={{ position: "static" }}>
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+          >
+            Linguaphile Skills Hub
+          </Typography>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Button
+              onClick={() => {
+                localStorage.removeItem("userID");
+                router.push("/login");
+              }}
+              sx={{ color: "#fff" }}
+            >
+              Logout
+            </Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Container
+        maxWidth="sm"
+        style={{ paddingTop: "24px", paddingBottom: "24px" }}
+      >
         <Card variant="outlined">
           <CardContent>
             <Typography variant="h5" align="center">
@@ -130,6 +148,7 @@ export default function Form() {
                     return (
                       <TextField
                         id="outlined-name"
+                        value={val.val}
                         label={`${val.input}`}
                         onChange={handleChange(i)}
                       />
@@ -178,35 +197,58 @@ export default function Form() {
                   }
                 })
               ) : (
-                <Alert severity="info">No form available right now. Check back in later!</Alert>
+                <Alert severity="info">
+                  No form available right now. Check back in later!
+                </Alert>
               )}
               {ind + 1 != formlist.length ? (
-                formlist.length==0?<Button
-                disabled
-                variant="contained"
-                onClick={() => {
-                  setInd(ind + 1);
-                }}
-              >
-                Next
-              </Button>:<Button
-                  variant="contained"
-                  onClick={() => {
-                    setInd(ind + 1);
-                  }}
-                >
-                  Next
-                </Button>
+                formlist.length == 0 ? (
+                  <Button
+                    disabled
+                    variant="contained"
+                    onClick={() => {
+                      setInd(ind + 1);
+                    }}
+                  >
+                    Next
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setInd(ind + 1);
+                    }}
+                  >
+                    Next
+                  </Button>
+                )
               ) : (
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    pdfmake();
-                    submit();
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
                   }}
                 >
-                  Submit
-                </Button>
+                  <Button variant="outlined">
+                    <Link
+                      underline="none"
+                      href="/api/makePdf"
+                      download="generated_pdf.pdf"
+                      className="downloadBtn"
+                    >
+                      Download PDF
+                    </Link>
+                  </Button>
+                  <Button
+                    style={{ marginTop: "12px" }}
+                    variant="contained"
+                    onClick={() => {
+                      submit();
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </div>
               )}
             </Stack>
           </CardContent>
