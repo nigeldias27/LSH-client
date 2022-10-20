@@ -24,7 +24,6 @@ import {
   Link,
 } from "@mui/material";
 import axios from "axios";
-import { pdfFormat } from "../pdfFormat/pdfFormat";
 export default function Form() {
   const [formlist, setFormlist] = useState([]);
   const [open, setOpen] = useState(false);
@@ -46,7 +45,6 @@ export default function Form() {
       `${process.env.NEXT_PUBLIC_API}` + "getinputs",
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
-    console.log(response);
     setOpen(false);
     const data = response.data;
     if (data == "No form") {
@@ -58,39 +56,8 @@ export default function Form() {
       router.push("/login");
       return;
     }
-    for (
-      let questionsindex = 0;
-      questionsindex < data.questions.length;
-      questionsindex++
-    ) {
-      const element = data.questions[questionsindex];
-      for (
-        let innerquestionsindex = 0;
-        innerquestionsindex < element.length;
-        innerquestionsindex++
-      ) {
-        const e = element[innerquestionsindex];
-        if (
-          data.questions[questionsindex][innerquestionsindex].type == "checkbox"
-        ) {
-          var l = [];
-          for (
-            let il = 0;
-            il <
-            data.questions[questionsindex][innerquestionsindex].subheadings
-              .length;
-            il++
-          ) {
-            l.push(false);
-          }
-          data.questions[questionsindex][innerquestionsindex].val =
-            JSON.stringify(l);
-        } else {
-          data.questions[questionsindex][innerquestionsindex].val = "";
-        }
-      }
-    }
-    console.log(data.questions);
+    
+    console.log(data);
     setFormlist([...data.questions]);
     setGotorole(data.goTorole);
     if (data.previousSubmisson != undefined) {

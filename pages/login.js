@@ -41,8 +41,8 @@ export default function Login() {
       setOpen(false);
       const data = response.data;
       setSuccess("success");
-      localStorage.setItem("userID", data);
-      router.push("/form");
+      localStorage.setItem("userID", data.token);
+      router.push("/form/"+data.formId.toString());
     } catch (error) {
       setOpen(false);
       setSuccess("error");
