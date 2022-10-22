@@ -24,9 +24,6 @@ export default function Home() {
               <Link href="/signup">
                 <Button variant="outlined">Sign Up</Button>
               </Link>
-              <Link href="/landing">
-                <Button variant="outlined">Landing</Button>
-              </Link>
             </Stack>
           </CardContent>
         </Card>
