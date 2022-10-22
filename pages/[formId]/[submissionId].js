@@ -29,7 +29,7 @@ export default function Form() {
   const [open, setOpen] = useState(false);
   const [ind, setInd] = useState(0);
   const router = useRouter();
-  const [gotorole, setGotorole] = useState("");
+  const [gotorole, setGotorole] = useState([]);
   const [previousSubmisson, setPreviousSubmission] = useState([]);
   const [toggle, setToggle] = useState(true);
 
@@ -59,7 +59,7 @@ export default function Form() {
     
     console.log(data);
     setFormlist([...data.questions]);
-    setGotorole(data.goTorole);
+    setGotorole([...data.goTorole]);
     if (data.previousSubmisson != undefined) {
       setPreviousSubmission(data.previousSubmisson);
     }
