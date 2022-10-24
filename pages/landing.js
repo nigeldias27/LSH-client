@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import styles from "../styles/Home.module.css";
 import Card from "@mui/material/Card";
 import Link from "next/link";
@@ -74,9 +75,6 @@ function FormText(props){
           <Box sx={{fontSize: '16px', color:'green', fontWeight: '700'}}>complete</Box>
         </Box>
         <Box sx={{display: 'flex', flexDirection: 'row', marginTop: "7%", marginBottom: "2%"}}>
-          <Box>
-            <Button variant="raised" sx={{background: "#D9BB9B", fontSize: "16px", fontWeight: "700"}}>Complete Now!</Button>
-          </Box>
         </Box>
       </Box>
     </Box>
@@ -94,6 +92,27 @@ function CreateForm(){
     </Box>
   </div>)
 }
+
+function AddFormButton(){
+  return(<div>
+    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+      <IconButton> {/* REFERENCE ON ICON BUTTONS: https://muhimasri.com/blogs/how-to-create-mui-icon-button-with-text/ */}
+        <AddIcon style={{fontSize: "72px", padding: "20px", background: '#ffe5b4', borderRadius: "50%"}} />
+      </IconButton>
+      <CreateForm />
+    </Box>{/* plus button */}
+  </div>)
+}
+
+function pendingData(){
+  const response = await axios
+                          .get("http://localhost:4000/api/pendingForms")
+                          .then(function(response){
+                            console.log(response.data);
+                          })
+}
+
+pendingData();
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -127,6 +146,8 @@ function a11yProps(index) {
     'aria-controls': `simple-tabpanel-${index}`,
   };
 }
+
+//formText ->
 
 export default function Home() {
   const navbarStyle = {
@@ -171,14 +192,8 @@ export default function Home() {
       <Box>
         <Box sx={{display: 'flex', flexDirection: 'row', alignItems: "center", marginTop: "5%", marginLeft: "5%"}}>
           <Box style={{fontSize: "128px", marginRight: "35%"}}>Hello, there!</Box>
-          <Box sx={{display: 'flex', flexDirection: 'column'}}>
-              <IconButton> {/* REFERENCE ON ICON BUTTONS: https://muhimasri.com/blogs/how-to-create-mui-icon-button-with-text/ */}
-                <AddIcon style={{fontSize: "72px", padding: "20px", background: '#ffe5b4', borderRadius: "50%"}} />
-              </IconButton>
-              <CreateForm />
-          </Box>{/* plus button */}
-
-      </Box>
+          <AddFormButton />
+        </Box>
 
         <Box sx={{display: "flex", marginLeft: "3%", marginTop: "3%"}}>
           <Box sx={{width: "100%"}}>
@@ -203,8 +218,6 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
-
-
     </div>
   );
 }
