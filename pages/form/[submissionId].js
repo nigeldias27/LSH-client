@@ -47,6 +47,7 @@ export default function Form() {
     );
     setOpen(false);
     const data = response.data;
+    console.log(data);
     if (data == "No form") {
       setFormlist([]);
       return;
@@ -56,7 +57,7 @@ export default function Form() {
       router.push("/login");
       return;
     }
-    
+
     console.log(data);
     setFormlist([...data.questions]);
     setGotorole([...data.goTorole]);
@@ -79,12 +80,13 @@ export default function Form() {
   };
 
   const submit = async () => {
+    const { submissionId } = router.query;
     console.log(gotorole);
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API}` + "submission",
+      `${process.env.NEXT_PUBLIC_API}` + "submission/" + submissionId,
       {
         questions: formlist,
-        gotorole: gotorole,
+        goTorole: gotorole,
         previousSubmisson: previousSubmisson,
       },
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
