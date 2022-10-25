@@ -26,11 +26,11 @@ import Tab from "@mui/material/Tab";
 import axios from "axios";
 
 function FormText(props) {
-  let today = new Date().toISOString().slice(0, 10);
+
   const router = useRouter();
   if (props.status === "pending") {
     return (
-      <div style={{ marginLeft: "2%", marginBottom: "1%" }}>
+      <div style={{ marginLeft: "3%", marginBottom: "1%"}}>
         <Box
           sx={{
             display: "flex",
@@ -39,6 +39,8 @@ function FormText(props) {
             borderRadius: "10px",
             padding: "2%",
             border: "5px solid #D9BB9B",
+            width: '100%',
+            paddingRight: '5%',
           }}
         >
           <Box
@@ -47,22 +49,23 @@ function FormText(props) {
             <ArticleIcon sx={{ fontSize: "84px" }} />
           </Box>
           <Box
-            sx={{ display: "flex", flexDirection: "column", width: "300px" }}
+            sx={{ display: "flex", flexDirection: "column", width: '100%'}}
           >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                width: "80%",
+                width: '100%',
               }}
             >
-              <Box sx={{ fontSize: "32px", fontWeight: "900" }}></Box>
               <Box
                 sx={{
+                  display: 'flex',
                   fontSize: "32px",
                   fontWeight: "900",
-                  overflowX: "hidden",
+                  overflowX: "auto",
+                  width: '100%',
                 }}
               >
                 {props.label}
@@ -73,14 +76,16 @@ function FormText(props) {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                marginTop: '5%',
+                width: '150%',
               }}
             >
               <Box
-                sx={{ fontSize: "18px", marginRight: "1%", fontWeight: "700" }}
+                sx={{ fontSize: "18px", marginRight: "2%", fontWeight: "700"}}
               >
                 created:{" "}
               </Box>
-              <Box sx={{ fontSize: "18px" }}>{props.date}</Box>
+              <Box sx={{ fontSize: "18px"}}>{props.date.substr(0,10)}</Box>
             </Box>
             <Box
               sx={{
@@ -110,9 +115,6 @@ function FormText(props) {
                     fontSize: "16px",
                     fontWeight: "700",
                   }}
-                  onClick={() => {
-                    router.push(`form/${props.submissionId}`);
-                  }}
                 >
                   Complete Now!
                 </Button>
@@ -126,7 +128,7 @@ function FormText(props) {
 
   if (props.status === "complete") {
     return (
-      <div style={{ marginLeft: "2%", marginBottom: "1%" }}>
+      <div style={{ marginLeft: "3%", marginBottom: "1%" }}>
         <Box
           sx={{
             display: "flex",
@@ -135,6 +137,8 @@ function FormText(props) {
             borderRadius: "10px",
             padding: "2%",
             border: "5px solid #D9BB9B",
+            width: '100%',
+            paddingRight: '5%',
           }}
         >
           <Box
@@ -143,22 +147,23 @@ function FormText(props) {
             <ArticleIcon sx={{ fontSize: "84px" }} />
           </Box>
           <Box
-            sx={{ display: "flex", flexDirection: "column", width: "300px" }}
+            sx={{ display: "flex", flexDirection: "column", width: '100%'}}
           >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                width: "80%",
+                width: '100%',
               }}
             >
-              <Box sx={{ fontSize: "32px", fontWeight: "900" }}> </Box>
               <Box
                 sx={{
+                  display: 'flex',
                   fontSize: "32px",
                   fontWeight: "900",
-                  overflowX: "hidden",
+                  overflowX: "auto",
+                  width: '100%',
                 }}
               >
                 {props.label}
@@ -169,14 +174,16 @@ function FormText(props) {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                marginTop: '5%',
+                width: '150%',
               }}
             >
               <Box
-                sx={{ fontSize: "18px", marginRight: "1%", fontWeight: "700" }}
+                sx={{ fontSize: "18px", marginRight: "2%", fontWeight: "700"}}
               >
                 created:{" "}
               </Box>
-              <Box sx={{ fontSize: "18px" }}>{props.date}</Box>
+              <Box sx={{ fontSize: "18px"}}>{props.date.substr(0,10)}</Box>
             </Box>
             <Box
               sx={{
@@ -231,7 +238,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Box>{children}</Box>
         </Box>
       )}
     </div>
@@ -261,12 +268,8 @@ export default function Home() {
     borderRadius: "10px",
   };
   const pageStyle = {
-    background: "#FFFFF0",
-    margin: "0px",
     // backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/005/145/984/original/office-and-school-stationery-seamless-background-pattern-free-free-vector.jpg")',
-    fontFamily: "Questrial",
-    // width: '100%',
-    // height: '100%'
+    fontFamily: "Questrial"    
   };
 
   const [value, setValue] = React.useState(0);
@@ -453,6 +456,7 @@ export default function Home() {
                         label={v.username}
                         status="complete"
                         date={v.createdAt}
+                        width={v.username.length*32+100}
                       />
                     );
                   }
