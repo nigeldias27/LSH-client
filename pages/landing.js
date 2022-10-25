@@ -456,7 +456,6 @@ export default function Home() {
                         label={v.username}
                         status="complete"
                         date={v.createdAt}
-                        width={v.username.length*32+100}
                       />
                     );
                   }
