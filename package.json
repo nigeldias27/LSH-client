@@ -12,15 +12,15 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@fontsource/questrial": "^4.5.10",
-    "@mui/icons-material": "^5.10.9",
-    "@mui/material": "^5.10.10",
+    "@mui/icons-material": "^5.10.6",
+    "@mui/material": "^5.10.7",
     "axios": "^0.27.2",
     "fs": "^0.0.1-security",
     "fs-extra": "^10.1.0",
     "next": "12.3.1",
     "puppeteer": "^19.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "18.0.0",
+    "react-dom": "18.0.0"
   },
   "devDependencies": {
     "eslint": "8.24.0",

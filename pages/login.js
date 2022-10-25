@@ -42,7 +42,9 @@ export default function Login() {
       const data = response.data;
       setSuccess("success");
       localStorage.setItem("userID", data.token);
-      router.push("/landing/"+data.formId.toString());
+      if(router.isReady){
+        router.push("/landing");
+      }
     } catch (error) {
       setOpen(false);
       setSuccess("error");
