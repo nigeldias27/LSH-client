@@ -27,7 +27,7 @@ import axios from "axios";
 
 function FormText(props) {
   let today = new Date().toISOString().slice(0, 10);
-
+  const router = useRouter();
   if (props.status === "pending") {
     return (
       <div style={{ marginLeft: "2%", marginBottom: "1%" }}>
@@ -57,7 +57,7 @@ function FormText(props) {
                 width: "80%",
               }}
             >
-              <Box sx={{ fontSize: "32px", fontWeight: "900" }}>#</Box>
+              <Box sx={{ fontSize: "32px", fontWeight: "900" }}></Box>
               <Box
                 sx={{
                   fontSize: "32px",
@@ -80,7 +80,7 @@ function FormText(props) {
               >
                 created:{" "}
               </Box>
-              <Box sx={{ fontSize: "18px" }}>{today}</Box>
+              <Box sx={{ fontSize: "18px" }}>{props.date}</Box>
             </Box>
             <Box
               sx={{
@@ -109,6 +109,9 @@ function FormText(props) {
                     background: "#D9BB9B",
                     fontSize: "16px",
                     fontWeight: "700",
+                  }}
+                  onClick={() => {
+                    router.push(`form/${props.submissionId}`);
                   }}
                 >
                   Complete Now!
@@ -150,7 +153,7 @@ function FormText(props) {
                 width: "80%",
               }}
             >
-              <Box sx={{ fontSize: "32px", fontWeight: "900" }}>#</Box>
+              <Box sx={{ fontSize: "32px", fontWeight: "900" }}> </Box>
               <Box
                 sx={{
                   fontSize: "32px",
@@ -173,7 +176,7 @@ function FormText(props) {
               >
                 created:{" "}
               </Box>
-              <Box sx={{ fontSize: "18px" }}>{today}</Box>
+              <Box sx={{ fontSize: "18px" }}>{props.date}</Box>
             </Box>
             <Box
               sx={{
@@ -204,7 +207,7 @@ function FormText(props) {
                     fontWeight: "700",
                   }}
                 >
-                  Complete Now!
+                  Download PDF
                 </Button>
               </Box>
             </Box>
@@ -213,53 +216,6 @@ function FormText(props) {
       </div>
     );
   }
-}
-
-function CreateForm() {
-  return (
-    <div style={{ width: "150%", marginLeft: "30%" }}>
-      <Box
-        sx={{
-          width: "0%",
-          height: "0%",
-          borderLeft: "25px solid transparent",
-          borderRight: "25px solid transparent",
-          borderBottom: "25px solid #ffedd0",
-          marginLeft: "5%",
-        }}
-      ></Box>
-      <Box
-        sx={{
-          background: "#ffedd0",
-          display: "flex",
-          flexDirection: "column",
-          padding: "3%",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "10px",
-        }}
-      >
-        <Box sx={{ fontSize: "22px", fontWeight: "700", marginBottom: "1%" }}>
-          Form Name:{" "}
-        </Box>
-        <TextField
-          sx={{ width: "100%", marginBottom: "2%" }}
-          label="Form Name"
-        ></TextField>
-        <Button
-          variant="raised"
-          sx={{
-            background: "#D9BB9B",
-            fontSize: "16px",
-            fontWeight: "700",
-            width: "100%",
-          }}
-        >
-          Create!
-        </Button>
-      </Box>
-    </div>
-  );
 }
 
 function TabPanel(props) {
@@ -314,7 +270,9 @@ export default function Home() {
   };
 
   const [value, setValue] = React.useState(0);
-
+  const [pendingForms, setPendingForms] = React.useState([]);
+  const [completedForms, setCompletedForms] = React.useState([]);
+  const [addButton, setAdd] = React.useState(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -322,7 +280,59 @@ export default function Home() {
   const add = () => {
     router.push("/form/parent");
   };
-
+  React.useEffect(() => {
+    fetchForms();
+  }, []);
+  async function fetchForms() {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API}` + "pendingForms",
+      { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
+    );
+    const data = response.data;
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      if (data[i] != null) {
+        const getUserInfo = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}` + "/getUserInfo/" + data[i].user[0],
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("userID")}`,
+            },
+          }
+        );
+        element.username = getUserInfo.data.email;
+      }
+    }
+    setPendingForms([...data]);
+    const respons = await axios.get(
+      `${process.env.NEXT_PUBLIC_API}` + "completedForms",
+      { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
+    );
+    const dat = respons.data;
+    for (let i = 0; i < dat.length; i++) {
+      const element = dat[i];
+      if (dat[i] != null) {
+        const getUserInfo = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}` + "/getUserInfo/" + dat[i].user[0],
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("userID")}`,
+            },
+          }
+        );
+        element.username = getUserInfo.data.email;
+      }
+    }
+    setCompletedForms([...dat]);
+    console.log(dat);
+    const axiosResponse = await axios.get(
+      `${process.env.NEXT_PUBLIC_API}` + "createForm",
+      { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
+    );
+    if (axiosResponse.data == "Parent") {
+      setAdd(true);
+    }
+  }
   return (
     <div style={pageStyle}>
       <div className="navbar" style={navbarStyle}>
@@ -369,19 +379,22 @@ export default function Home() {
             Hello, there!
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <IconButton onClick={add}>
-              {" "}
-              {/* REFERENCE ON ICON BUTTONS: https://muhimasri.com/blogs/how-to-create-mui-icon-button-with-text/ */}
-              <AddIcon
-                style={{
-                  fontSize: "72px",
-                  padding: "20px",
-                  background: "#ffe5b4",
-                  borderRadius: "50%",
-                }}
-              />
-            </IconButton>
-            <CreateForm />
+            {addButton == true ? (
+              <IconButton onClick={add}>
+                {" "}
+                {/* REFERENCE ON ICON BUTTONS: https://muhimasri.com/blogs/how-to-create-mui-icon-button-with-text/ */}
+                <AddIcon
+                  style={{
+                    fontSize: "72px",
+                    padding: "20px",
+                    background: "#ffe5b4",
+                    borderRadius: "50%",
+                  }}
+                />
+              </IconButton>
+            ) : (
+              <div></div>
+            )}
           </Box>
           {/* plus button */}
         </Box>
@@ -410,8 +423,18 @@ export default function Home() {
               <Box
                 sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
               >
-                <FormText label="yooooo" status="pending" />
-                <FormText label="john doe" status="pending" />
+                {pendingForms.map((v) => {
+                  if (v != null) {
+                    return (
+                      <FormText
+                        label={v.username}
+                        status="pending"
+                        date={v.createdAt}
+                        submissionId={v._id}
+                      />
+                    );
+                  }
+                })}
               </Box>
             </TabPanel>
 
@@ -423,8 +446,17 @@ export default function Home() {
               <Box
                 sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
               >
-                <FormText label="pranav" status="complete" />
-                <FormText label="nigel" status="complete" />
+                {completedForms.map((v) => {
+                  if (v != null) {
+                    return (
+                      <FormText
+                        label={v.username}
+                        status="complete"
+                        date={v.createdAt}
+                      />
+                    );
+                  }
+                })}
               </Box>
             </TabPanel>
           </Box>

@@ -22,7 +22,9 @@ import {
   Toolbar,
   Box,
   Link,
+  IconButton,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 export default function Form() {
   const [formlist, setFormlist] = useState([]);
@@ -103,6 +105,14 @@ export default function Form() {
     >
       <AppBar component="nav" style={{ position: "static" }}>
         <Toolbar>
+          <IconButton
+            style={{ color: "white" }}
+            onClick={() => {
+              router.back();
+            }}
+          >
+            <ArrowBackIcon></ArrowBackIcon>
+          </IconButton>
           <Typography
             variant="h6"
             component="div"
