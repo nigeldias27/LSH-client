@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
 import Card from "@mui/material/Card";
-import Link from "next/link";
+import { Link } from "@mui/material";
 import { CardContent, Typography, Button } from "@mui/material";
 import { Container, Stack } from "@mui/system";
 import SearchIcon from "@mui/icons-material/Search";
@@ -24,6 +24,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 import axios from "axios";
+import { pdfFormat } from "../pdfFormat/pdfFormat.js";
 
 function FormText(props) {
 
@@ -213,7 +214,30 @@ function FormText(props) {
                     fontSize: "16px",
                     fontWeight: "700",
                   }}
-                >
+                  onClick={()=>{
+                    //console.log("--->"+props.data+"<---");
+                    const htmlString = 
+                      `
+                      <html>
+                      <body>
+                        <h1>Hallo</h1>
+                      </body>
+                      </html>
+                      `;
+                    axios.post('/api/makePdf', pdfFormat, {responseType: 'arraybuffer'})
+                    .then((res)=>{
+                      console.log("-->"+res+"<--");
+                      const url = window.URL.createObjectURL(new Blob([res.data]
+                        ,{type: "application/pdf"}))
+                      console.log("--->"+url+"<---");
+                      var link = document.createElement('a');
+                      link.href = url;
+                      link.setAttribute('download', 'iep.pdf');
+                      document.body.appendChild(link);
+                      link.click();
+                    })
+                  }
+                  }>
                   Download PDF
                 </Button>
               </Box>
@@ -451,13 +475,13 @@ export default function Home() {
               >
                 {completedForms.map((v) => {
                   if (v != null) {
-                    console.log(v);
+                    console.log(v)
                     return (
                       <FormText
                         label={v.username}
                         status="complete"
                         date={v.createdAt}
-                        width={v.username.length*32+100}
+                        data={v.questions}
                       />
                     );
                   }
