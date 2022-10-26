@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
+//<a href="localhost:3000/mypdf.pdf" download></a>
+
 import {
   Container,
   Card,
@@ -141,6 +144,7 @@ export default function Form() {
     setFormlist([...formlist]);
     console.log(formlist);
   };
+
   return (
     <div
       style={{
