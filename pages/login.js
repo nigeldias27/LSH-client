@@ -121,7 +121,15 @@ export default function Login() {
                 />
               </FormControl>
 
-              <Button variant="contained" onClick={login}>
+              <Button
+                variant="raised"
+                sx={{
+                  background: "#D9BB9B",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                }}
+                onClick={login}
+              >
                 Login
               </Button>
               {success != "" ? (

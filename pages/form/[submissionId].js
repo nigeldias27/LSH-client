@@ -26,6 +26,7 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
+import { Navb } from "../../component/navbar";
 export default function Form() {
   const [formlist, setFormlist] = useState([]);
   const [open, setOpen] = useState(false);
@@ -103,36 +104,7 @@ export default function Form() {
           'url("https://static.vecteezy.com/system/resources/previews/002/735/447/non_2x/school-supplies-and-office-stationary-on-white-background-back-to-school-education-and-business-concept-seamless-pattern-for-banner-poster-office-supply-store-and-wallpaper-free-vector.jpg")',
       }}
     >
-      <AppBar component="nav" style={{ position: "static" }}>
-        <Toolbar>
-          <IconButton
-            style={{ color: "white" }}
-            onClick={() => {
-              router.back();
-            }}
-          >
-            <ArrowBackIcon></ArrowBackIcon>
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            Linguaphile Skills Hub
-          </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button
-              onClick={() => {
-                localStorage.removeItem("userID");
-                router.push("/login");
-              }}
-              sx={{ color: "#fff" }}
-            >
-              Logout
-            </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
+      <Navb />
       <Container
         maxWidth="sm"
         style={{ paddingTop: "24px", paddingBottom: "24px" }}
@@ -235,19 +207,13 @@ export default function Form() {
                     flexDirection: "column",
                   }}
                 >
-                  <Button variant="outlined">
-                    <Link
-                      underline="none"
-                      href="/api/makePdf"
-                      download="generated_pdf.pdf"
-                      className="downloadBtn"
-                    >
-                      Download PDF
-                    </Link>
-                  </Button>
                   <Button
-                    style={{ marginTop: "12px" }}
-                    variant="contained"
+                    variant="raised"
+                    sx={{
+                      background: "#D9BB9B",
+                      fontSize: "16px",
+                      fontWeight: "700",
+                    }}
                     onClick={() => {
                       submit();
                     }}

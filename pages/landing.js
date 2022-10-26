@@ -17,7 +17,7 @@ import { Height } from "@mui/icons-material";
 import "@fontsource/questrial"; // Defaults to weight 400.
 import { orange } from "@mui/material/colors";
 import { useRouter } from "next/router";
-
+import { Navb } from "../component/navbar";
 import * as React from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -26,11 +26,10 @@ import Tab from "@mui/material/Tab";
 import axios from "axios";
 
 function FormText(props) {
-
   const router = useRouter();
   if (props.status === "pending") {
     return (
-      <div style={{ marginLeft: "3%", marginBottom: "1%"}}>
+      <div style={{ marginLeft: "3%", marginBottom: "1%" }}>
         <Box
           sx={{
             display: "flex",
@@ -39,8 +38,8 @@ function FormText(props) {
             borderRadius: "10px",
             padding: "2%",
             border: "5px solid #D9BB9B",
-            width: '100%',
-            paddingRight: '5%',
+            width: "100%",
+            paddingRight: "5%",
           }}
         >
           <Box
@@ -48,24 +47,22 @@ function FormText(props) {
           >
             <ArticleIcon sx={{ fontSize: "84px" }} />
           </Box>
-          <Box
-            sx={{ display: "flex", flexDirection: "column", width: '100%'}}
-          >
+          <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                width: '100%',
+                width: "100%",
               }}
             >
               <Box
                 sx={{
-                  display: 'flex',
+                  display: "flex",
                   fontSize: "32px",
                   fontWeight: "900",
                   overflowX: "auto",
-                  width: '100%',
+                  width: "100%",
                 }}
               >
                 {props.label}
@@ -76,16 +73,16 @@ function FormText(props) {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                marginTop: '5%',
-                width: '150%',
+                marginTop: "5%",
+                width: "150%",
               }}
             >
               <Box
-                sx={{ fontSize: "18px", marginRight: "2%", fontWeight: "700"}}
+                sx={{ fontSize: "18px", marginRight: "2%", fontWeight: "700" }}
               >
                 created:{" "}
               </Box>
-              <Box sx={{ fontSize: "18px"}}>{props.date.substr(0,10)}</Box>
+              <Box sx={{ fontSize: "18px" }}>{props.date.substr(0, 10)}</Box>
             </Box>
             <Box
               sx={{
@@ -115,6 +112,9 @@ function FormText(props) {
                     fontSize: "16px",
                     fontWeight: "700",
                   }}
+                  onClick={() => {
+                    router.push(`form/${props.submissionId}`);
+                  }}
                 >
                   Complete Now!
                 </Button>
@@ -137,8 +137,8 @@ function FormText(props) {
             borderRadius: "10px",
             padding: "2%",
             border: "5px solid #D9BB9B",
-            width: '100%',
-            paddingRight: '5%',
+            width: "100%",
+            paddingRight: "5%",
           }}
         >
           <Box
@@ -146,24 +146,22 @@ function FormText(props) {
           >
             <ArticleIcon sx={{ fontSize: "84px" }} />
           </Box>
-          <Box
-            sx={{ display: "flex", flexDirection: "column", width: '100%'}}
-          >
+          <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                width: '100%',
+                width: "100%",
               }}
             >
               <Box
                 sx={{
-                  display: 'flex',
+                  display: "flex",
                   fontSize: "32px",
                   fontWeight: "900",
                   overflowX: "auto",
-                  width: '100%',
+                  width: "100%",
                 }}
               >
                 {props.label}
@@ -174,16 +172,16 @@ function FormText(props) {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                marginTop: '5%',
-                width: '150%',
+                marginTop: "5%",
+                width: "150%",
               }}
             >
               <Box
-                sx={{ fontSize: "18px", marginRight: "2%", fontWeight: "700"}}
+                sx={{ fontSize: "18px", marginRight: "2%", fontWeight: "700" }}
               >
                 created:{" "}
               </Box>
-              <Box sx={{ fontSize: "18px"}}>{props.date.substr(0,10)}</Box>
+              <Box sx={{ fontSize: "18px" }}>{props.date.substr(0, 10)}</Box>
             </Box>
             <Box
               sx={{
@@ -269,7 +267,7 @@ export default function Home() {
   };
   const pageStyle = {
     // backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/005/145/984/original/office-and-school-stationery-seamless-background-pattern-free-free-vector.jpg")',
-    fontFamily: "Questrial"    
+    fontFamily: "Questrial",
   };
 
   const [value, setValue] = React.useState(0);
@@ -338,36 +336,7 @@ export default function Home() {
   }
   return (
     <div style={pageStyle}>
-      <div className="navbar" style={navbarStyle}>
-        <Box
-          sx={{
-            height: "5%",
-            width: "10%",
-            marginRight: "25%",
-            marginLeft: "1%",
-          }}
-          component="img"
-          src="https://static.wixstatic.com/media/509b3c_1a2e37a045e749ab90cb338b3451a951~mv2.png/v1/crop/x_345,y_259,w_2720,h_1747/fill/w_558,h_360,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Linguaphile%20Logo%20%26%20font.png"
-        ></Box>
-        <Box sx={{ marginRight: "35%" }}>
-          <TextField
-            sx={{ width: "150%" }}
-            label="Search Linguaphile!"
-            InputProps={{
-              endAdornment: <SearchIcon />,
-            }}
-          />
-        </Box>
-        <Box sx={{ marginRight: "2%" }}>
-          <NotificationsIcon style={{ fontSize: "38px" }} />
-        </Box>
-        <Box
-          component="img"
-          sx={{ height: "5%", width: "5%", borderRadius: "50%" }}
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXw3NjA4Mjc3NHx8ZW58MHx8fHw%3D&w=1000&q=80"
-        ></Box>
-      </div>
-
+      <Navb />
       <Box>
         <Box
           sx={{
