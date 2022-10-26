@@ -31,6 +31,17 @@ export default function Login() {
     showPassword: false,
   });
   const [success, setSuccess] = useState("");
+
+  useEffect(() => {
+    if (
+      !(
+        localStorage.getItem("userID") == null ||
+        localStorage.getItem("userID") == ""
+      )
+    ) {
+      router.push("/landing");
+    }
+  }, []);
   const login = async () => {
     try {
       setOpen(true);
@@ -123,7 +134,15 @@ export default function Login() {
                 />
               </FormControl>
 
-              <Button variant="contained" onClick={login}>
+              <Button
+                variant="raised"
+                sx={{
+                  background: "#D9BB9B",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                }}
+                onClick={login}
+              >
                 Login
               </Button>
               {success != "" ? (

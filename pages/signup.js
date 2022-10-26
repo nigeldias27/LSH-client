@@ -170,7 +170,16 @@ export default function Signup() {
                   })}
                 </RadioGroup>
               </FormControl>
-              <Button variant="outlined" onClick={click}>
+              <Button
+                variant="outlined"
+                sx={{
+                  color: "#D9BB9B",
+                  borderColor: "#D9BB9B",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                }}
+                onClick={click}
+              >
                 Sign Up
               </Button>
               {success != "" ? (
