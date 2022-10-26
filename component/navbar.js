@@ -1,7 +1,8 @@
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "@fontsource/questrial"; // Defaults to weight 400.
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -17,6 +18,13 @@ export function Navb() {
   };
   return (
     <div className="navbar" style={navbarStyle}>
+      <IconButton
+        onClick={() => {
+          router.back();
+        }}
+      >
+        <ArrowBackIcon style={{ color: "black" }}></ArrowBackIcon>
+      </IconButton>
       <Box
         sx={{
           height: "5%",

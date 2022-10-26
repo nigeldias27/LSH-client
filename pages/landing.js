@@ -89,6 +89,22 @@ function FormText(props) {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                marginTop: "5%",
+                width: "150%",
+              }}
+            >
+              <Box
+                sx={{ fontSize: "18px", marginRight: "2%", fontWeight: "700" }}
+              >
+                Name of Child:{" "}
+              </Box>
+              <Box sx={{ fontSize: "18px" }}>{props.childName}</Box>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
               <ErrorOutlineIcon sx={{ color: "red", marginRight: "1%" }} />
@@ -182,6 +198,22 @@ function FormText(props) {
                 created:{" "}
               </Box>
               <Box sx={{ fontSize: "18px" }}>{props.date.substr(0, 10)}</Box>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop: "5%",
+                width: "150%",
+              }}
+            >
+              <Box
+                sx={{ fontSize: "18px", marginRight: "2%", fontWeight: "700" }}
+              >
+                Name of Child:{" "}
+              </Box>
+              <Box sx={{ fontSize: "18px" }}>{props.childName}</Box>
             </Box>
             <Box
               sx={{
@@ -396,13 +428,25 @@ export default function Home() {
                 sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
               >
                 {pendingForms.map((v) => {
+                  var childName = "";
                   if (v != null) {
+                    console.log(v);
+                    for (let i = 0; i < v.questions.length; i++) {
+                      const element = v.questions[i];
+                      for (let j = 0; j < element.length; j++) {
+                        const e = element[j];
+                        if (e.input == "Name of Child") {
+                          childName = e.val;
+                        }
+                      }
+                    }
                     return (
                       <FormText
                         label={v.username}
                         status="pending"
                         date={v.createdAt}
                         submissionId={v._id}
+                        childName={childName}
                       />
                     );
                   }
@@ -419,12 +463,24 @@ export default function Home() {
                 sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
               >
                 {completedForms.map((v) => {
+                  var childName = "";
                   if (v != null) {
+                    console.log(v);
+                    for (let i = 0; i < v.questions.length; i++) {
+                      const element = v.questions[i];
+                      for (let j = 0; j < element.length; j++) {
+                        const e = element[j];
+                        if (e.input == "Name of Child") {
+                          childName = e.val;
+                        }
+                      }
+                    }
                     return (
                       <FormText
                         label={v.username}
                         status="complete"
                         date={v.createdAt}
+                        childName={childName}
                       />
                     );
                   }

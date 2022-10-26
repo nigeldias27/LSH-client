@@ -31,6 +31,17 @@ export default function Login() {
     showPassword: false,
   });
   const [success, setSuccess] = useState("");
+
+  useEffect(() => {
+    if (
+      !(
+        localStorage.getItem("userID") == null ||
+        localStorage.getItem("userID") == ""
+      )
+    ) {
+      router.push("/landing");
+    }
+  }, []);
   const login = async () => {
     try {
       setOpen(true);
