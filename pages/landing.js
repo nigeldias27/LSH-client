@@ -451,6 +451,7 @@ export default function Home() {
               >
                 {completedForms.map((v) => {
                   if (v != null) {
+                    console.log(v);
                     return (
                       <FormText
                         label={v.username}
