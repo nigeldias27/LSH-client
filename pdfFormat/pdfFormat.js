@@ -28,7 +28,7 @@ export const pdfFormat = `<html>
                             <td class="xwidth" id="633b3849cda8bf0b5950c416">!a!</td>
                         </tr>
                         <tr>
-                            <td class="placeholderA" id="633b3857cda8bf0b5950c418">Date of birth</td>
+                            <td class="placeholderA">Date of birth</td>
                             <td class="xwidth" id="633b3857cda8bf0b5950c418">!a!</td>
                         </tr>
                         <tr>
@@ -44,7 +44,7 @@ export const pdfFormat = `<html>
                             <td class="xwidth" id="633b37facda8bf0b5950c40c">!a!</td>
                         </tr>
                         <tr>
-                            <td class="placeholderA" id="633b3815cda8bf0b5950c410">Contact Number</td>
+                            <td class="placeholderA">Contact Number</td>
                             <td  colspan=2 class="xwidth" style="height: 30px;" id="633b3815cda8bf0b5950c410">!a!</td>
                         </tr>
                         <tr>
