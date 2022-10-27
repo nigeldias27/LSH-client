@@ -8,7 +8,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { IconButton } from "@mui/material";
+import { IconButton, Backdrop, CircularProgress } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ArticleIcon from "@mui/icons-material/Article";
 import DoneIcon from "@mui/icons-material/Done";
@@ -244,30 +244,34 @@ function FormText(props) {
                     fontSize: "16px",
                     fontWeight: "700",
                   }}
-                  onClick={()=>{
+                  onClick={() => {
                     //console.log("--->"+props.data+"<---");
-                    const htmlString = 
-                      `
+                    console.log(props.data);
+                    const htmlString = `
                       <html>
                       <body>
                         <h1>Hallo</h1>
                       </body>
                       </html>
                       `;
-                    axios.post('/api/makePdf', pdfFormat, {responseType: 'arraybuffer'})
-                    .then((res)=>{
-                      console.log("-->"+res+"<--");
-                      const url = window.URL.createObjectURL(new Blob([res.data]
-                        ,{type: "application/pdf"}))
-                      console.log("--->"+url+"<---");
-                      var link = document.createElement('a');
-                      link.href = url;
-                      link.setAttribute('download', 'iep.pdf');
-                      document.body.appendChild(link);
-                      link.click();
-                    })
-                  }
-                  }>
+                    axios
+                      .post("/api/makePdf", props.data, {
+                        responseType: "arraybuffer",
+                      })
+                      .then((res) => {
+                        console.log("-->" + res + "<--");
+                        const url = window.URL.createObjectURL(
+                          new Blob([res.data], { type: "application/pdf" })
+                        );
+                        console.log("--->" + url + "<---");
+                        var link = document.createElement("a");
+                        link.href = url;
+                        link.setAttribute("download", "iep.pdf");
+                        document.body.appendChild(link);
+                        link.click();
+                      });
+                  }}
+                >
                   Download PDF
                 </Button>
               </Box>
@@ -330,6 +334,7 @@ export default function Home() {
   const [pendingForms, setPendingForms] = React.useState([]);
   const [completedForms, setCompletedForms] = React.useState([]);
   const [addButton, setAdd] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -361,11 +366,14 @@ export default function Home() {
       }
     }
     setPendingForms([...data]);
+    setOpen(true);
     const respons = await axios.get(
       `${process.env.NEXT_PUBLIC_API}` + "completedForms",
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
+    setOpen(false);
     const dat = respons.data;
+    console.log(dat);
     for (let i = 0; i < dat.length; i++) {
       const element = dat[i];
       if (dat[i] != null) {
@@ -454,7 +462,6 @@ export default function Home() {
                 {pendingForms.map((v) => {
                   var childName = "";
                   if (v != null) {
-                    console.log(v);
                     for (let i = 0; i < v.questions.length; i++) {
                       const element = v.questions[i];
                       for (let j = 0; j < element.length; j++) {
@@ -515,6 +522,12 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }
