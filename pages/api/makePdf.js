@@ -61,6 +61,26 @@ export default async function handler(req, res) {
           if ($(`#${e.id}`) != null) {
             $(`#${e.id}`).html(e.val);
           }
+        } else {
+          if ($(`#${e.id}`) != null) {
+            const tableStr =
+              `<td style="border: 1px solid black; width: 436px; height: 10px; padding: 2px 0px 2px 4px">` +
+              e.input +
+              `</td>
+                                    <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding: 2px,; padding-left: 4px; padding-right: 4px; ">` +
+              e.val.split(" ")[0] +
+              `</td>
+                                    <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding: 2px,; padding-left: 4px; padding-right: 4px; ">` +
+              e.val.split(" ")[1] +
+              `</td>
+                                    <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding: 2px,; padding-left: 4px; padding-right: 4px; ">` +
+              e.val.split(" ")[2] +
+              `</td>
+                                    <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding: 2px,; padding-left: 4px; padding-right: 4px; ">` +
+              e.val.split(" ")[3] +
+              `</td>`;
+            $(`#${e.id}`).html(tableStr);
+          }
         }
       } else if (e.type == "checkbox") {
         if ($(`#${e.id}`) != null) {

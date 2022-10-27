@@ -41,20 +41,19 @@ export default function Form() {
   const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
-    console.log("Effect");
-    console.log(toggle);
     fetchinputs();
   }, [toggle]);
 
   async function fetchinputs() {
     setOpen(true);
+    const { submissionId } = router.query;
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API}` + "getinputs",
+      `${process.env.NEXT_PUBLIC_API}` + "getinputs/" + submissionId,
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
     setOpen(false);
     const data = response.data;
-    console.log(data);
+
     if (data == "No form") {
       setFormlist([]);
       return;
@@ -65,11 +64,11 @@ export default function Form() {
       return;
     }
 
-    console.log(data);
     for (let i = 0; i < data.questions.length; i++) {
       const element = data.questions[i];
       for (let j = 0; j < element.length; j++) {
         const e = element[j];
+
         if (
           e.input.includes(
             "(Raw score total,typical performance,Probable difference, Definite difference seperated by spaces)"
@@ -92,8 +91,8 @@ export default function Form() {
         }
       }
     }
-    console.log(data);
     setFormlist([...data.questions]);
+    console.log(formlist);
     setGotorole([...data.goTorole]);
     if (data.previousSubmisson != undefined) {
       setPreviousSubmission(data.previousSubmisson);
@@ -110,12 +109,11 @@ export default function Form() {
   const handleChange = (prop) => (event) => {
     formlist[ind][prop].val = event.target.value;
     setFormlist([...formlist]);
-    console.log(formlist);
   };
 
   const submit = async () => {
     const { submissionId } = router.query;
-    console.log(gotorole);
+
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API}` + "submission/" + submissionId,
       {
@@ -126,7 +124,6 @@ export default function Form() {
       { headers: { Authorization: `Bearer ${localStorage.getItem("userID")}` } }
     );
     setToggle(toggle == true ? false : true);
-    console.log(toggle);
   };
 
   const selectChange = (i, myi) => (event) => {
@@ -137,12 +134,10 @@ export default function Form() {
   };
 
   const slidingChange = (i, myi) => (event) => {
-    console.log(typeof event.target.value.toString());
     var l = formlist[ind][i].val.split(" ");
     l[myi] = event.target.value.toString();
     formlist[ind][i].val = l.join(" ");
     setFormlist([...formlist]);
-    console.log(formlist);
   };
 
   return (
@@ -176,41 +171,109 @@ export default function Form() {
                         "(Raw score total,typical performance,Probable difference, Definite difference seperated by spaces)"
                       ) == true
                     ) {
-                      return (
-                        <div>
-                          <Typography>{val.input}</Typography>
-                          <Grid container spacing={3}>
-                            <Grid item xs={3}>
-                              <TextField
-                                id="outlined-name"
-                                value={val.val.split(" ")[0]}
-                                onChange={slidingChange(i, 0)}
-                              />
+                      if (
+                        val.input ==
+                        "Sensory seeking(Raw score total,typical performance,Probable difference, Definite difference seperated by spaces)"
+                      ) {
+                        return (
+                          <div>
+                            <Grid container spacing={4}>
+                              <Grid item xs={3}></Grid>
+
+                              <Grid item xs={2}>
+                                <Typography>Raw Score Total</Typography>
+                              </Grid>
+                              <Grid item xs={2}>
+                                <Typography>Typical Performance</Typography>
+                              </Grid>
+                              <Grid item xs={2}>
+                                <Typography>Probable Difference</Typography>
+                              </Grid>
+                              <Grid item xs={2}>
+                                <Typography>Definite Difference</Typography>
+                              </Grid>
                             </Grid>
-                            <Grid item xs={3}>
-                              <TextField
-                                id="outlined-name"
-                                value={val.val.split(" ")[1]}
-                                onChange={slidingChange(i, 1)}
-                              />
+
+                            <Grid container spacing={4}>
+                              <Grid item xs={3}>
+                                <Typography>
+                                  {val.input.split("(")[0]}
+                                </Typography>
+                              </Grid>
+
+                              <Grid item xs={2}>
+                                <TextField
+                                  id="outlined-name"
+                                  value={val.val.split(" ")[0]}
+                                  onChange={slidingChange(i, 0)}
+                                />
+                              </Grid>
+                              <Grid item xs={2}>
+                                <TextField
+                                  id="outlined-name"
+                                  value={val.val.split(" ")[1]}
+                                  onChange={slidingChange(i, 1)}
+                                />
+                              </Grid>
+                              <Grid item xs={2}>
+                                <TextField
+                                  id="outlined-name"
+                                  value={val.val.split(" ")[2]}
+                                  onChange={slidingChange(i, 2)}
+                                />
+                              </Grid>
+                              <Grid item xs={2}>
+                                <TextField
+                                  id="outlined-name"
+                                  value={val.val.split(" ")[3]}
+                                  onChange={slidingChange(i, 3)}
+                                />
+                              </Grid>
                             </Grid>
-                            <Grid item xs={3}>
-                              <TextField
-                                id="outlined-name"
-                                value={val.val.split(" ")[2]}
-                                onChange={slidingChange(i, 2)}
-                              />
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div>
+                            <Grid container spacing={4}>
+                              <Grid item xs={3}>
+                                <Typography>
+                                  {val.input.split("(")[0]}
+                                </Typography>
+                              </Grid>
+
+                              <Grid item xs={2}>
+                                <TextField
+                                  id="outlined-name"
+                                  value={val.val.split(" ")[0]}
+                                  onChange={slidingChange(i, 0)}
+                                />
+                              </Grid>
+                              <Grid item xs={2}>
+                                <TextField
+                                  id="outlined-name"
+                                  value={val.val.split(" ")[1]}
+                                  onChange={slidingChange(i, 1)}
+                                />
+                              </Grid>
+                              <Grid item xs={2}>
+                                <TextField
+                                  id="outlined-name"
+                                  value={val.val.split(" ")[2]}
+                                  onChange={slidingChange(i, 2)}
+                                />
+                              </Grid>
+                              <Grid item xs={2}>
+                                <TextField
+                                  id="outlined-name"
+                                  value={val.val.split(" ")[3]}
+                                  onChange={slidingChange(i, 3)}
+                                />
+                              </Grid>
                             </Grid>
-                            <Grid item xs={3}>
-                              <TextField
-                                id="outlined-name"
-                                value={val.val.split(" ")[3]}
-                                onChange={slidingChange(i, 3)}
-                              />
-                            </Grid>
-                          </Grid>
-                        </div>
-                      );
+                          </div>
+                        );
+                      }
                     } else {
                       return (
                         <TextField
@@ -222,7 +285,6 @@ export default function Form() {
                       );
                     }
                   } else if (val.type == "radio") {
-                    console.log(val.val);
                     if (
                       val.subheadings[0] ==
                       [
@@ -413,6 +475,7 @@ export default function Form() {
                       setOpen(true);
                       submit();
                       setOpen(false);
+                      router.push("/landing");
                     }}
                   >
                     Submit
