@@ -471,9 +471,9 @@ export default function Form() {
                       fontSize: "16px",
                       fontWeight: "700",
                     }}
-                    onClick={() => {
+                    onClick={async () => {
                       setOpen(true);
-                      submit();
+                      await submit();
                       setOpen(false);
                       router.push("/landing");
                     }}
