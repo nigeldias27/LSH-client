@@ -459,7 +459,7 @@ export default function Home() {
               <Box
                 sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
               >
-                {pendingForms.map((v) => {
+                {pendingForms.map((v, i) => {
                   var childName = "";
                   if (v != null) {
                     for (let i = 0; i < v.questions.length; i++) {
@@ -478,6 +478,7 @@ export default function Home() {
                         date={v.createdAt}
                         submissionId={v._id}
                         childName={childName}
+                        key={i}
                       />
                     );
                   }
@@ -493,7 +494,7 @@ export default function Home() {
               <Box
                 sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
               >
-                {completedForms.map((v) => {
+                {completedForms.map((v, i) => {
                   var childName = "";
                   if (v != null) {
                     console.log(v);
@@ -513,6 +514,7 @@ export default function Home() {
                         date={v.createdAt}
                         data={v.questions}
                         childName={childName}
+                        key={i}
                       />
                     );
                   }

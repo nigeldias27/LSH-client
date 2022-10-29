@@ -176,7 +176,7 @@ export default function Form() {
                         "Sensory seeking(Raw score total,typical performance,Probable difference, Definite difference seperated by spaces)"
                       ) {
                         return (
-                          <div>
+                          <div key={val.id}>
                             <Grid container spacing={4}>
                               <Grid item xs={3}></Grid>
 
@@ -234,7 +234,7 @@ export default function Form() {
                         );
                       } else {
                         return (
-                          <div>
+                          <div key={val.id}>
                             <Grid container spacing={4}>
                               <Grid item xs={3}>
                                 <Typography>
@@ -281,6 +281,7 @@ export default function Form() {
                           value={val.val}
                           label={`${val.input}`}
                           onChange={handleChange(i)}
+                          key={val.id}
                         />
                       );
                     }
@@ -295,7 +296,7 @@ export default function Form() {
                       ][0]
                     ) {
                       return (
-                        <div>
+                        <div key={val.id}>
                           <Typography style={{ paddingBottom: "24px" }}>
                             {val.input}
                           </Typography>
@@ -389,7 +390,7 @@ export default function Form() {
                       );
                     } else {
                       return (
-                        <FormControl>
+                        <FormControl key={val.id}>
                           <FormLabel id="demo-radio-buttons-group-label">
                             {val.input}
                           </FormLabel>
@@ -398,13 +399,14 @@ export default function Form() {
                             defaultValue="female"
                             name="radio-buttons-group"
                           >
-                            {val.subheadings.map((myele) => {
+                            {val.subheadings.map((myele, myindex) => {
                               return (
                                 <FormControlLabel
                                   value={myele}
                                   control={<Radio />}
                                   label={myele}
                                   onChange={handleChange(i)}
+                                  key={myindex}
                                 />
                               );
                             })}
@@ -414,7 +416,7 @@ export default function Form() {
                     }
                   } else if (val.type == "checkbox") {
                     return (
-                      <FormControl>
+                      <FormControl key={val.id}>
                         <FormLabel>{val.input}</FormLabel>
                         <FormGroup>
                           {val.subheadings.map((myele, myi) => {
@@ -423,6 +425,7 @@ export default function Form() {
                                 control={<Checkbox />}
                                 label={myele}
                                 onChange={checkboxChange(i, myi)}
+                                key={myi}
                               />
                             );
                           })}

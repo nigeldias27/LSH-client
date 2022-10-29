@@ -158,9 +158,10 @@ export default function Signup() {
                   aria-labelledby="demo-row-radio-buttons-group-label"
                   name="row-radio-buttons-group"
                 >
-                  {roles.map((val) => {
+                  {roles.map((val, i) => {
                     return (
                       <FormControlLabel
+                        key={i}
                         value={`${val}`}
                         control={<Radio />}
                         label={`${val}`}
