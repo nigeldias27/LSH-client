@@ -31,7 +31,7 @@ export default async function handler(req, res) {
           if ($(`#${e.id}`) != null) {
             const tableStr =
               ` <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">` +
-              e.input +
+              e.input.split("(")[0] +
               `</td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; ">` +
               e.val.split(" ")[0] +
