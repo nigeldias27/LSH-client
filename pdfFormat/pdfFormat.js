@@ -101,7 +101,7 @@ export const pdfFormat = `<html>
                 </div>
 
                 <br>
-                <div style="margin-top: 10px;">
+                <div style="padding-top: 50px;">
                     <div class="line"></div>
                     <div class="student-details">Developmental History - Pregnancy Details of Mother</div>
                     <table cellspacing="0">
@@ -199,7 +199,7 @@ export const pdfFormat = `<html>
                     </table>
                 </div>
                 <br><br><br><br><br><br><br><br>
-                <div style="padding-top: 250px;">
+                <div style="padding-top: 140px;">
                     <div class="line"></div>
                     <div class="student-details">Needs Analysis</div>
                     <div class="student-details-mini" style="margin-top: 10px;">Behaviour Checklist</div>
@@ -220,7 +220,7 @@ export const pdfFormat = `<html>
                         <tr>
                             <table cellspacing="0">
                                 <tr>
-                                    <td style="border: 1px solid black; width: 436px; height: 40px; text-align: center; font-weight: 700; font-size: 20px; color: blue">Behaviours&nbspin&nbspschool</td>
+                                    <td style="border: 1px solid black; width: 436px; height: 40px; text-align: center; font-weight: 700; font-size: 20px; color: blue">Social&nbspCommunication&nbspSkills</td>
                                     <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Frequency*</td>
                                     <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">With Support</td>
                                     <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Without Support</td>
@@ -427,7 +427,7 @@ export const pdfFormat = `<html>
                             <br>
                             <table cellspacing="0">
                                 <tr>
-                                    <td style="border: 1px solid black; width: 436px; height: 40px; text-align: center; font-weight: 700; font-size: 20px; color: blue">Behaviours&nbspin&nbspschool</td>
+                                    <td style="border: 1px solid black; width: 436px; height: 40px; text-align: center; font-weight: 700; font-size: 20px; color: blue">Social&nbspCommunication&nbspSkills</td>
                                     <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Frequency*</td>
                                     <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">With Support</td>
                                     <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Without Support</td>
@@ -515,7 +515,7 @@ export const pdfFormat = `<html>
                     </div>
                 </div>
                 <br><br><br>
-                <div  style="padding-top: 500px;">
+                <div style="padding-top: 440px;">
                     <div class="line"></div>
                     <div class="student-details">Occupational Therapy Assessment</div>
                     <div class="student-details-mini" style="margin-bottom: 20px; margin-top: 20px;">Student Metadata</div>
@@ -545,16 +545,16 @@ export const pdfFormat = `<html>
 
                     <div>
                         <div class="student-details-mini" style="margin-top: 40px">Impressions</div>
-                        <table cellspacing="0">
+                        <table cellspacing="0" style="width: 750px">
                             <tr>
-                                <td style="border: 1px solid black; width: 440px; height: 40px; text-align: center; font-weight: 700; font-size: 20px; color: blue">Factors</td>
+                                <td style="border: 1px solid black; width: 200px; height: 40px; text-align: center; font-weight: 700; font-size: 20px; color: blue">Factors</td>
                                 <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Raw Score Total</td>
                                 <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Typical Performance</td>
                                 <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Probable Difference</td>
                                 <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Definite Difference</td>
                             </tr>
                             <tr id="6357e890a7e301f79fa00255">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Sensory seeking</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Sensory seeking</td>
                                 
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -563,7 +563,7 @@ export const pdfFormat = `<html>
     
                             </tr>
                             <tr>
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Emotionally Reactive</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Emotionally Reactive</td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -571,7 +571,7 @@ export const pdfFormat = `<html>
                             </tr>
 
                             <tr id="6357e89ca7e301f79fa00257">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Low Endurance / Tone</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Low Endurance / Tone</td>
                                 <div>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -580,7 +580,7 @@ export const pdfFormat = `<html>
                                 </div>
                             </tr>
                             <tr id="6357e8d2a7e301f79fa0025f">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Poor Registration</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Poor Registration</td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -588,14 +588,14 @@ export const pdfFormat = `<html>
                                
                             </tr>
                             <tr id="6357e8dea7e301f79fa00261">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Sensory sensitivity</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Sensory sensitivity</td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                             </tr>
                             <tr id="6357e8eaa7e301f79fa00263">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Sedentary</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Sedentary</td>
                                
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -604,7 +604,7 @@ export const pdfFormat = `<html>
             
                             </tr>
                             <tr id="6357e8f4a7e301f79fa00265">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Fine motor/ Perceptual</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Fine motor/ Perceptual</td>
                          
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -616,9 +616,9 @@ export const pdfFormat = `<html>
                     </div>
 
                     <div>
-                        <table cellspacing="0">
+                        <table cellspacing="0" style="width: 750px">
                             <tr>
-                                <td style="border: 1px solid black; width: 440px; height: 40px; text-align: center; font-weight: 700; font-size: 20px; color: blue">Factors</td>
+                                <td style="border: 1px solid black; width: 200px; height: 40px; text-align: center; font-weight: 700; font-size: 20px; color: blue">Factors</td>
                                 <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Raw Score Total</td>
                                 <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Typical Performance</td>
                                 <td style="border: 1px solid black; width: 61px; height: 40px; padding-left: 4px; padding-right: 4px; font-weight: 700; font-size: 15px; color: blue">Probable Difference</td>
@@ -628,7 +628,7 @@ export const pdfFormat = `<html>
                                 <td colspan=5><div style="font-size: 16px; font-weight: 700; color: darkblue; text-align: center;">Sensory Processing</div></td>
                             </tr>
                             <tr id="6357e92ba7e301f79fa00267">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Auditory Processing</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Auditory Processing</td>
                                
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -637,7 +637,7 @@ export const pdfFormat = `<html>
                             
                             </tr>
                             <tr id="6357e936a7e301f79fa00269">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Visual Processing</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Visual Processing</td>
                                 
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -645,23 +645,8 @@ export const pdfFormat = `<html>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                             
                             </tr>
-
-                            <tr>
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Low Endurance / Tone</td>
-                                <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
-                                <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
-                                <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
-                                <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
-                            </tr>
-                            <tr>
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Oral Sensory Sensitivity</td>
-                                <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
-                                <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
-                                <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
-                                <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
-                            </tr>
                             <tr id="6357e942a7e301f79fa0026b">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Vestibular Processing</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Vestibular Processing</td>
                        
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -670,7 +655,7 @@ export const pdfFormat = `<html>
                               
                             </tr>
                             <tr id="6357e94ca7e301f79fa0026d">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Touch Processing</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Touch Processing</td>
                    
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -678,8 +663,11 @@ export const pdfFormat = `<html>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                      
                             </tr>
+                            <tr>
+                                <td><br><br><br><br></td>
+                            </tr>
                             <tr id="6357e958a7e301f79fa0026f">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Multi sensory Processing</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Multi sensory Processing</td>
                           
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -688,7 +676,7 @@ export const pdfFormat = `<html>
                               
                             </tr>
                             <tr id="6357e966a7e301f79fa00271">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Oral Sensory Processing</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Oral Sensory Processing</td>
                              
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -697,7 +685,7 @@ export const pdfFormat = `<html>
                            
                             </tr>
                             <tr id="6357e99ba7e301f79fa00273">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Sensory Processing Related to Endurance / Tone</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Sensory Processing Related to Endurance / Tone</td>
                           
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -706,7 +694,7 @@ export const pdfFormat = `<html>
                          
                             </tr>
                             <tr id="6357e9afa7e301f79fa00275">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Modulation Related to Body Position and Movement</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Modulation Related to Body Position and Movement</td>
                             
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -715,7 +703,7 @@ export const pdfFormat = `<html>
                              
                             </tr>
                             <tr id="6357e9c3a7e301f79fa00277">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Modulation of movement Affecting Activity Level</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Modulation of movement Affecting Activity Level</td>
               
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -723,11 +711,8 @@ export const pdfFormat = `<html>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                            
                             </tr>
-                            <tr>
-                                <td><br><br><br><br><br></td>
-                            </tr>
                             <tr id="6357e9d9a7e301f79fa00279">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Modulation of Sensory Input Affecting Emotional Response</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Modulation of Sensory Input Affecting Emotional Response</td>
                               
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -736,7 +721,7 @@ export const pdfFormat = `<html>
                              
                             </tr>
                             <tr id="6357e9f6a7e301f79fa0027b">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Modulation of Visual Input Affecting Emotional Response and Activity Level</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Modulation of Visual Input Affecting Emotional Response and Activity Level</td>
                             
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -748,7 +733,7 @@ export const pdfFormat = `<html>
                                 <td colspan=5><div style="font-size: 16px; font-weight: 700; color: darkblue; text-align: center;">Behaviour and Emotional Response</div></td>
                             </tr>
                             <tr id="6357ea23a7e301f79fa0027d">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Emotional / Social Response</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Emotional / Social Response</td>
                                 
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -757,7 +742,7 @@ export const pdfFormat = `<html>
                           
                             </tr>
                             <tr id="6357ea37a7e301f79fa0027f">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Behavioural Outcome of Sensory Processing</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Behavioural Outcome of Sensory Processing</td>
                                 
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -766,7 +751,7 @@ export const pdfFormat = `<html>
                              
                             </tr>
                             <tr id="6357ea5ea7e301f79fa00281">
-                                <td style="border: 1px solid black; width: 440px; height: 10px; padding: 2px 0px 2px 4px">Items Indicating Thresholds for Response</td>
+                                <td style="border: 1px solid black; width: 200px; height: 10px; padding: 2px 0px 2px 4px">Items Indicating Thresholds for Response</td>
                               
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
                                 <td style="border: 1px solid black; width: 61px; height: 10px; padding: 2px; padding-left: 4px; padding-right: 4px; "></td>
@@ -850,18 +835,18 @@ export const pdfFormat = `<html>
         .long-width{
             border: 1px solid black;
             padding: 5px 0px 5px 5px;
-            width: 500px;
+            width: 560px;
             height: 90px;
         }
         .photo-width{
             border: 1px solid black;
             padding: 100px 75px;
         }
-        .placeholder{
-            width: 300px;
+        .placeholderA{
+            width: 180px;
         }
         .placeholder{
-            width: 300px;
+            width: 180px;
         }
         .placement-type{
             display: flex;
